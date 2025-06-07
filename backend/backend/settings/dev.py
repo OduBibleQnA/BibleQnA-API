@@ -1,6 +1,8 @@
 from .base import *
+from dotenv import load_dotenv
 
-SECRET_KEY = 'django-insecure-1-*@dwqufi3nmavnbtw8l7fuows%2mi__0-cmirm89!q77e2nw'
+load_dotenv()
+
 
 DEBUG=True
 

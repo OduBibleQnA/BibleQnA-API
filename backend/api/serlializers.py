@@ -1,7 +1,10 @@
+from cryptography.fernet import Fernet
 from django.contrib.auth.models import User
+from django.conf import settings
 from rest_framework import serializers
 from .models import Question, Testimony
 
+cipher = Fernet(settings.ENCRYPTION_KEY)
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -47,6 +50,15 @@ class TestimonySerializer(serializers.ModelSerializer):
             "submitted_at",
         ]
 
+    def validate_contact_detail(self, value):
+        if not value:
+            raise serializers.ValidationError("Contact detail must be included")
+        return value
+
     def create(self, validated_data):
-        testimony = Testimony.objects.create(**validated_data)
-        return testimony
+        contact_detail = validated_data.get('contact_detail')
+        if contact_detail:
+            encrypted_contact_detail = cipher.encrypt(contact_detail.encode("utf-8"))
+            validated_data['contact_detail'] = encrypted_contact_detail
+        
+        return super().create(validated_data)

@@ -3,7 +3,7 @@ from django.db import models
 from django.utils import timezone
 
 class Question(models.Model):
-    first_name = models.CharField(max_length=15, blank=True, null=True)
+    first_name = models.CharField(max_length=15, blank=True, null=True, default="Anonymous")
     question = models.TextField()
     submitted_at = models.DateTimeField(auto_now_add=True)
 
@@ -41,10 +41,8 @@ class Testimony(models.Model):
     submitted_at = models.DateTimeField(auto_now_add=True)
 
     # def set_contact_detail(self, plain_text):
-    #     self.encrypted_contact_detail = encrypt_contact_detail(plain_text)
+    #     self.6contact_detail = encrypt_contact_detail(plain_text)
 
-    # def get_contact_detail(self):
-    #     return decrypt_contact_detail(self.encrypted_contact_detail)
 
     def __str__(self):
         return f"{self.name} ({self.contact_method})"

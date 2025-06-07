@@ -12,6 +12,10 @@ dependencies = [
     "djangorestframework-simplejwt>=5.5.0",
     "psycopg2-binary>=2.9.10",
     "pyjwt>=2.9.0",
-    "python-dotenv>=1.1.0",
     "pytz>=2025.2",
+]
+
+[dependency-groups]
+dev = [
+    "python-dotenv>=1.1.0",
 ]
